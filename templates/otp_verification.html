@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chatbot</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3;
+        }
+
+        #chatbot-header {
+            /* background-color: red; */
+            background: linear-gradient(269.94deg, #011788 10.47%, #00126B 99.97%);
+            padding: 10px 15px;
+            height: 45px;
+        }
+
+            #chatbot-header h2 {
+                font-size: 15px;
+                color: #fff;
+                font-weight: 400;
+                display: inline-flex;
+                vertical-align: middle;
+                line-height: 27px;
+            }
+
+            #chatbot-header img {
+                height: 25px;
+                margin-right: 7px;
+            }
+
+        #chatbot-body {
+            background-color: #f3f3f3;
+            height: calc(100vh - 45px);
+        }
+
+        .chatbotControls {
+            margin-top: 10px;
+            border-top: 1px solid gainsboro;
+            padding: 10px 15px;
+        }
+
+            .chatbotControls > div {
+                display: flex;
+            }
+
+                .chatbotControls > div div:first-child {
+                    width: 100%;
+                }
+
+            .form-control {
+                display: block;
+                width: 100%;
+                padding: 0.975rem 0.75rem;
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #dee2e6;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border-radius: 0.375rem;
+                transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            }
+
+                .form-control:focus {
+                    color: #212529;
+                    background-color: #fff;
+                    border-color: #86b7fe;
+                    outline: 0;
+                    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+                }
+
+            .chatbotControls a {
+                width: 50px;
+                height: 37px;
+                display: inline-block;
+                background-color: #fff;
+                border: 1px solid #c9c7c7;
+                border-radius: 5px;
+                margin-left: 10px;
+                position: relative;
+            }
+
+                .chatbotControls a.sendBtn {
+                    background-color: #bae0fd;
+                }
+
+                .chatbotControls a img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    max-width: 40px;
+                    max-height: 25px;
+                }
+
+        .chatContent {
+            padding: 20px 15px 10px 15px;
+            height: calc(100vh - 130px);
+            overflow-y: auto;
+        }
+
+        .usr {
+            position: relative;
+            background: gainsboro;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            /* box-shadow: 0px 2px 3px 1px #c0c0c0; */
+            margin-left: 10%;
+        }
+
+            .usr::before {
+                content: '';
+                position: absolute;
+                border-left: 31px solid transparent;
+                border-right: 0px solid transparent;
+                border-top: 21px solid gainsboro;
+                right: 0;
+                bottom: -17px;
+            }
+
+            .usr::after {
+                content: 'You';
+                position: absolute;
+                bottom: -20px;
+                right: 23px;
+                font-weight: 600;
+                color: #525252;
+            }
+
+        .chtbt {
+            position: relative;
+            background: #b4d9ff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0px 2px 3px 1px #c0c0c0;
+            margin-right: 10%;
+        }
+
+            .chtbt::before {
+                content: '';
+                position: absolute;
+                border-left: 0px solid transparent;
+                border-right: 26px solid transparent;
+                border-top: 21px solid #b4d9ff;
+                left: 0;
+                bottom: -17px;
+            }
+
+            .chtbt::after {
+                content: 'PBI Bot';
+                position: absolute;
+                bottom: -20px;
+                left: 23px;
+                font-weight: 600;
+                color: #525252;
+            }
+
+        .chatTxt {
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+            margin-top: 40px;
+        }
+
+            .chatTxt:first-child {
+                margin-top: 0;
+            }
+
+        .typing-indicator {
+            width: 7px;
+            height: 15px;
+            background-color: #000;
+            animation: typing 1s infinite;
+        }
+
+        @keyframes typing {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+        .accDiv {
+            height: calc(100vh - 45px);
+            width: 30%;
+            margin: auto;
+            padding-top:10%;
+        }
+        .accDiv .form-control{
+            margin-bottom:15px;
+        }
+            .accDiv h4 {
+                font-weight: 200;
+                font-size: 30px;
+                margin-bottom: 20px;
+                text-align: center;
+                color: #4a4a4a;
+                font-family: 'Roboto', sans-serif;
+            }
+            .accDiv a, .accDiv button, .accDiv input[type="submit"] {
+                display: block;
+                text-align: center;
+                background: #011684;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                padding: 10px;
+                width: 100%;
+                border: none;
+            }
+                .accDiv a:hover, .accDiv button:hover, .accDiv input[type="submit"]:hover {
+                    cursor:pointer;
+                    background-color: #2a43c0;
+                }
+            .accDiv h6 {
+                text-align: center;
+                font-size: 15px;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+            .accDiv p {
+                text-align: center;
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+        .vrfdDiv{
+            text-align:center;
+        }
+            .vrfdDiv h5 {
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 15px;
+            }
+            #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #000000a3;
+        }
+            #loader div {
+                height: 100%;
+                position: relative;
+            }
+                #loader div div {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    width: 75px;
+                    height: 75px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    overflow: hidden;
+                }
+                    #loader div div img {
+                        width: 75px;
+                    }
+        @media(max-width:768px) {
+            .accDiv{
+                width:100%;
+                padding-left:15px;
+                padding-right:15px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div id="chatbot-popup">
+        <div id="chatbot-header">
+            <h2><img src="bot.png" alt=""> Chatbot</h2>
+        </div>
+        <div class="accDiv">
+            
+            <div class="OTPBox">
+                <div>
+                    <h4>OTP Verification</h4>
+                    <h6>Hello User</h6>
+                    <p>Please type your OTP, shared on your email id.</p>
+                </div>
+                <form action="/otp_verification" method="POST">
+                    <div>
+                        <!-- <input type="text"  id="otp" name="name" value="" placeholder="Enter OTP *" class="form-control" maxlength="6" required/> -->
+                        <input type="text" id="otp" name="otp" value="" placeholder="Enter OTP *" class="form-control" maxlength="6" required/>
+
+                    </div>
+                    <div>
+                        <input type="submit" value="Verify">
+                    </div>
+                </form>
+                
+                <div style="text-align:center;margin-top: 15px;">
+                    <span>Not recieved OTP? <a id="otp" href="javascript:void()" style="display: inline-block;background-color: transparent;padding: 0;color: #11b5e9;">Resend OTP</a></span>
+                </div>
+                <div style="margin-top:10px;text-align:center">
+                    <a href="#" style="display: inline-block;padding: 4px 10px;font-size: 13px;background-color: #9a9898;">Back to Home</a>
+                </div>
+            </div>
+            <div class="vrfdDiv" style="display:none;">
+                <img src="verified.png" />
+                <h5>OTP Verified Successfully</h5>
+            </div>
+        </div>
+    </div>
+    <div id="loader" style="display:none;">
+        <div>
+            <div>
+                <img src="loader.gif" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
